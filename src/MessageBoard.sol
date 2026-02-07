@@ -5,11 +5,7 @@ contract MessageBoard {
     string public message;
     address public owner;
 
-    event messageUpdated(
-        address indexed who,
-        string oldMessage,
-        string newMessage
-    );
+    event messageUpdated(address indexed who, string oldMessage, string newMessage);
 
     constructor(string memory _initial) {
         owner = msg.sender;

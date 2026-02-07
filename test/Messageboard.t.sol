@@ -33,11 +33,7 @@ contract MessageBoardTest is Test {
     function testEmitEvent() public {
         // Expect an event to be emitted when message changes
         vm.expectEmit(true, false, false, true);
-        emit MessageBoard.messageUpdated(
-            address(this),
-            "Hello blockchain!",
-            "updated!"
-        );
+        emit MessageBoard.messageUpdated(address(this), "Hello blockchain!", "updated!");
 
         board.setMessage("updated!");
     }
