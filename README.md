@@ -1,66 +1,146 @@
-## Foundry
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
 
-Foundry consists of:
+# MessageBoard
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+A simple on-chain message board built with **Solidity** and developed using **Foundry**.
+The contract stores a single public message that can be updated by any address, emitting an event on every change so updates can be tracked off-chain.
 
-## Documentation
+This project is intended as a minimal example of a state-changing smart contract and a good starting point for learning Foundry workflows.
 
-https://book.getfoundry.sh/
+---
+
+## Features
+
+* Stores a public message on-chain
+* Anyone can update the message
+* Emits an event whenever the message is changed
+* Tracks the deployer as the contract owner
+* Built and deployed using **Foundry**
+
+---
+
+## Tech Stack
+
+* **Solidity ^0.8.19**
+* **Foundry (forge / cast / anvil)**
+
+---
+
+## Project Structure
+
+```
+.
+├── src/            # Smart contracts
+├── script/         # Deployment scripts
+├── test/           # Tests
+├── foundry.toml
+└── README.md
+```
+
+---
+
+## Requirements
+
+* [Foundry](https://book.getfoundry.sh/) installed
+* Node.js (optional, for frontend or scripting)
+* An Ethereum RPC endpoint (local or testnet)
+* A funded wallet for deployment
+
+---
+
+## Installation
+
+Clone the repository and install dependencies:
+
+```bash
+git clone <your-repo-url>
+cd message-board
+forge install
+```
+
+---
+
+## Build
+
+Compile the contracts:
+
+```bash
+forge build
+```
+
+---
+
+## Test
+
+Run the test suite:
+
+```bash
+forge test
+```
+
+---
+
+## Deploy
+
+### Local Deployment (Anvil)
+
+1. Start a local node:
+
+   ```bash
+   anvil
+   ```
+
+2. Deploy the contract:
+
+   ```bash
+   forge script script/Deploy.s.sol \
+     --rpc-url http://localhost:8545 \
+     --broadcast
+   ```
+
+---
+
+### Testnet Deployment (Example: Sepolia)
+
+1. Set environment variables:
+
+   ```bash
+   export RPC_URL=<your_rpc_url>
+   export PRIVATE_KEY=<your_private_key>
+   ```
+
+2. Deploy:
+
+   ```bash
+   forge script script/Deploy.s.sol \
+     --rpc-url $RPC_URL \
+     --private-key $PRIVATE_KEY \
+     --broadcast \
+     --verify
+   ```
+
+---
 
 ## Usage
 
-### Build
+* Read the current message using the public getter
+* Update the message by sending a transaction to the setter function
+* Listen for emitted events to track message changes in a frontend or indexer
 
-```shell
-$ forge build
-```
+---
 
-### Test
+## Future Improvements
 
-```shell
-$ forge test
-```
+* Restrict updates to the owner
+* Add message history storage
+* Build a frontend using ethers.js or viem
+* Add gas optimizations
 
-### Format
+---
 
-```shell
-$ forge fmt
-```
+## License
 
-### Gas Snapshots
+MIT
 
-```shell
-$ forge snapshot
-```
+---
 
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
